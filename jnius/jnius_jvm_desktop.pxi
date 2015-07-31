@@ -27,6 +27,8 @@ cdef void create_jnienv() except *:
 
     optarr = jnius_config.options
     optarr.append("-Djava.class.path=" + jnius_config.expand_classpath())
+    # https://github.com/kivy/pyjnius/issues/85
+    optarr.append("-Djava.awt.headless=true")
 
     options = <JavaVMOption*>malloc(sizeof(JavaVMOption) * len(optarr))
     for i, opt in enumerate(optarr):
